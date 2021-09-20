@@ -11,8 +11,8 @@ public class Board : MonoBehaviour
     Tile[] Tiles;
 
     public Vector2 TilesOffset = Vector2.one;
-    public int Width = 6;
-    public int Height = 4;
+    public int Width;
+    public int Height;
 
     public bool CanMove = false;
 
@@ -40,8 +40,15 @@ public class Board : MonoBehaviour
             var sprite = sprites[i / 2];
             Tiles[i] = CreateTile(sprite);
         }
-       
-    }   
+
+        //for (var row = 0; row < Height; row++)
+        //{
+        //    for (var column = 0; column < Width; colmn++)
+        //        Tiles.Add(CreateTile(sprites, row, column));
+        //}
+        //Tiles.Single(x => x.Row == 1 && x.Column == 3)
+    }
+
     Tile CreateTile(Sprite faceSprite)
     {
         var gameobject = Instantiate(TilePrefabs);
@@ -82,12 +89,19 @@ public class Board : MonoBehaviour
    
     void HideTiles()
     {
+        //foreach(var tile in Tiles)
+        //{
+        //    tile.Uncovered = false;
+        //}
+
         Tiles.ToList().ForEach(tile => tile.Uncovered = false);
     }
+
     bool CheckIfEnd()
     {
         return Tiles.All(tile => tile.Active == false);
     }
+
     public void CheckPair()
     {
         StartCoroutine(CheckPairCoroutine());
